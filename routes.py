@@ -28,15 +28,16 @@ def add_artist():
   cur = conn.cursor()
 
   name = request.json['artist']
-  url = request.json['url']
   uri = request.json['uri']
   id = request.json['id']
   match_1 = request.json['match1']
   match_2 = request.json['match2']
   match_3 = request.json['match3']
 
-  cur.execute('INSERT INTO public.artist_matches (spotify_id, name, spotify_url, spotify_uri, match_1, match_2, match_3)'
-           'VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING id', (id, name, url, uri, match_1, match_2, match_3))
+  print(request.json)
+
+  cur.execute('INSERT INTO public.artist_matches (spotify_id, name, spotify_uri, match_1, match_2, match_3)'
+           'VALUES (%s, %s, %s, %s, %s, %s) RETURNING id', (id, name, uri, match_1, match_2, match_3))
 
   conn.commit()
 
